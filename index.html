@@ -1,13 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>The Lemon Squeeze</title>
+    <link rel="stylesheet" href="/src/style.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <canvas id="ocean-canvas"></canvas>
+    <div class="center-content">
+      <img src="/lemon-logo.png" alt="Lemon Logo" class="logo" />
+      <h1>The Lemon Squeeze</h1>
+      <p class="subtitle">Fashion, Culture, Music, Style, News. Curated daily. Easy Peezy.</p>
+      <form id="signup-form">
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Sign Up</button>
+        <div id="form-success" style="display:none; color: #4caf50; margin-top: 1em;">Success! You're on the list.</div>
+      </form>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
