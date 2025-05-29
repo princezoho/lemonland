@@ -20,10 +20,15 @@ function createImageGrid(scene, imageFilenames, cameraViewSize, cameraAspect) {
   const startX = -totalGridWidth / 2 + tileWidth / 2;
   const startY = totalGridHeight / 2 - tileHeight / 2;
 
+  // Get the correct base URL for assets
+  const baseUrl = import.meta.env.BASE_URL || ''; // BASE_URL includes trailing slash if not root
+
   for (let r = 0; r < numRows; r++) {
     for (let c = 0; c < numCols; c++) {
       const imageIndex = (r * numCols + c) % imageFilenames.length;
-      const texture = textureLoader.load(`/${imageFilenames[imageIndex]}`);
+      // Prepend baseUrl, ensuring no double slashes if baseUrl is just "/"
+      const imageUrl = `${baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl}/${imageFilenames[imageIndex]}`;
+      const texture = textureLoader.load(imageUrl);
       // texture.colorSpace = THREE.SRGBColorSpace; // Temporarily commented out for testing darkening
       const material = new THREE.MeshBasicMaterial({ map: texture, transparent: false });
       const geometry = new THREE.PlaneGeometry(tileWidth, tileHeight);
