@@ -1,10 +1,14 @@
 import { defineConfig } from 'vite';
 
+// https://vitejs.dev/config/
 export default defineConfig({
-  // No resolve.alias for now, let's see if the external option is enough
+  base: '/lemonland/', // Set for GitHub Pages deployment
   build: {
     rollupOptions: {
-      external: [], // Ensure 'three' is not externalized
-    }
-  }
+      // Ensure three.js is treated as an external dependency if it's linked via CDN or already available globally
+      // However, for typical npm module usage, it should NOT be external.
+      // If 'three' is in your package.json dependencies, it should be bundled.
+      // external: ['three'], // Uncomment if 'three' is explicitly provided globally and not via npm bundling
+    },
+  },
 }); 
