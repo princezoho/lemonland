@@ -50,3 +50,4 @@ dist-ssr
 # Logs
 *.log 
 >>>>>>> fb1a34ac6cc585f09ab2b962b7c3d52a1444e3c3
+.vercel
