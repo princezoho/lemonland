@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/lemonland/', // Set for GitHub Pages deployment
+  // base: '/lemonland/', // Not needed for Vercel deployment
   build: {
     rollupOptions: {
       // Ensure three.js is treated as an external dependency if it's linked via CDN or already available globally
