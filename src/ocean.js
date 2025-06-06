@@ -1,42 +1,98 @@
 import * as THREE from 'three';
 
-// Function to create the Three.js image grid (moved here or could be a utility)
-function createImageGrid(scene, imageFilenames, cameraViewSize, cameraAspect) {
+// Shuffle function (Fisher-Yates)
+function shuffle(array) {
+  let currentIndex = array.length, randomIndex;
+  // While there remain elements to shuffle.
+  while (currentIndex !== 0) {
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
+// Function to create the Three.js image grid
+function createImageGrid(scene, handImages, faceImages, cameraViewSize, cameraAspect) {
   const textureLoader = new THREE.TextureLoader();
   const imageGridGroup = new THREE.Group();
   imageGridGroup.name = "ImageGrid";
+
+  const shuffledHandImages = shuffle([...handImages]);
+  const shuffledFaceImages = shuffle([...faceImages]);
 
   const portraitAspect = 3 / 5; // 3:5 aspect ratio
   const tileHeight = cameraViewSize / 2.5; // Adjust number of rows visible (e.g., 2.5 rows)
   const tileWidth = tileHeight * portraitAspect;
   
-  const numCols = Math.ceil(cameraViewSize * cameraAspect / tileWidth) + 1;
-  const numRows = Math.ceil(cameraViewSize / tileHeight) + 1;
+  // Calculate how many cols and rows are needed to fill the view
+  const numCols = Math.ceil(cameraViewSize * cameraAspect / tileWidth) + 2; // +2 for overscan
+  const numRows = Math.ceil(cameraViewSize / tileHeight) + 2; // +2 for overscan
 
   const totalGridWidth = numCols * tileWidth;
-  const totalGridHeight = numRows * tileHeight; // For centering calculations
+  const totalGridHeight = numRows * tileHeight;
 
-  // Center the grid
   const startX = -totalGridWidth / 2 + tileWidth / 2;
   const startY = totalGridHeight / 2 - tileHeight / 2;
 
+  let handImagePointer = 0;
+  let faceImagePointer = 0;
+  const recentlyPlacedBufferSize = Math.floor(numCols * 1.5); // Store roughly 1.5 rows of image names
+  const recentlyPlacedImages = [];
+
   for (let r = 0; r < numRows; r++) {
     for (let c = 0; c < numCols; c++) {
-      // Determine which image to use based on checkerboard pattern
-      const isEvenPosition = (r + c) % 2 === 0;
+      const overallIndex = r * numCols + c;
+      let imageName = null;
+      let attempts = 0;
+
+      if (overallIndex % 2 === 0) { // Even index: use a hand image
+        const list = shuffledHandImages;
+        let currentPointer = handImagePointer;
+        while (attempts < list.length) {
+          const candidate = list[currentPointer % list.length];
+          if (!recentlyPlacedImages.includes(candidate)) {
+            imageName = candidate;
+            break;
+          }
+          currentPointer++;
+          attempts++;
+        }
+        if (!imageName) imageName = list[handImagePointer % list.length]; // Fallback
+        handImagePointer++;
+      } else { // Odd index: use a face image
+        const list = shuffledFaceImages;
+        let currentPointer = faceImagePointer;
+        while (attempts < list.length) {
+          const candidate = list[currentPointer % list.length];
+          if (!recentlyPlacedImages.includes(candidate)) {
+            imageName = candidate;
+            break;
+          }
+          currentPointer++;
+          attempts++;
+        }
+        if (!imageName) imageName = list[faceImagePointer % list.length]; // Fallback
+        faceImagePointer++;
+      }
+
+      // Update recently placed images buffer
+      if (imageName) {
+        recentlyPlacedImages.push(imageName);
+        if (recentlyPlacedImages.length > recentlyPlacedBufferSize) {
+          recentlyPlacedImages.shift(); // Remove the oldest
+        }
+      }
       
-      // We have 7 pairs of images (promo-1/lh1, promo-2/lh2, etc.)
-      const pairIndex = Math.floor((r * numCols + c) / 2) % 7;
-      
-      // Choose promo or lh based on position
-      const imageIndex = pairIndex * 2 + (isEvenPosition ? 0 : 1);
-      
-      const texture = textureLoader.load(`/${imageFilenames[imageIndex]}`);
+      const texture = textureLoader.load(`/${imageName}`);
       // texture.colorSpace = THREE.SRGBColorSpace; // Temporarily commented out for testing darkening
       const material = new THREE.MeshBasicMaterial({ map: texture, transparent: false });
       const geometry = new THREE.PlaneGeometry(tileWidth, tileHeight);
       const plane = new THREE.Mesh(geometry, material);
-      plane.position.set(startX + c * tileWidth, startY - r * tileHeight, -1);
+      plane.position.set(startX + c * tileWidth, startY - r * tileHeight, -1); // Positioned on Z=-1
       imageGridGroup.add(plane);
     }
   }
@@ -45,11 +101,12 @@ function createImageGrid(scene, imageFilenames, cameraViewSize, cameraAspect) {
 }
 
 export class Ocean {
-  constructor(canvas, imageFilenames) {
+  constructor(canvas, handImageFilenames, faceImageFilenames) {
     this.canvas = canvas;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    this.imageFilenames = imageFilenames;
+    this.handImageFilenames = handImageFilenames;
+    this.faceImageFilenames = faceImageFilenames;
 
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas, alpha: true, antialias: true });
     this.renderer.setSize(this.width, this.height);
@@ -73,7 +130,7 @@ export class Ocean {
     this.backgroundScene.add(this.backgroundCamera);
 
     // Re-enable imageGrid creation
-    this.imageGrid = createImageGrid(this.backgroundScene, this.imageFilenames, this.viewSize, aspect);
+    this.imageGrid = createImageGrid(this.backgroundScene, this.handImageFilenames, this.faceImageFilenames, this.viewSize, aspect);
     
     this.backgroundTexture = new THREE.WebGLRenderTarget(this.width, this.height, {
         minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBAFormat
@@ -249,7 +306,7 @@ export class Ocean {
     this.interactionPlane.geometry = new THREE.PlaneGeometry(this.viewSize * aspect, this.viewSize);
 
     this.backgroundScene.remove(this.imageGrid);
-    this.imageGrid = createImageGrid(this.backgroundScene, this.imageFilenames, this.viewSize, aspect);
+    this.imageGrid = createImageGrid(this.backgroundScene, this.handImageFilenames, this.faceImageFilenames, this.viewSize, aspect);
   }
 
   animate() {

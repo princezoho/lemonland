@@ -2,14 +2,11 @@ import * as THREE from 'three';
 import { Ocean } from './ocean.js';
 
 // Image filenames in the public directory
-const imageFilenames = [
-  'promo1.png', 'lh1.png',
-  'promo2.png', 'lh2.png', 
-  'promo3.png', 'lh3.png',
-  'promo4.png', 'lh4.png',
-  'promo5.png', 'lh5.png',
-  'promo6.png', 'lh6.png',
-  'promo7.png', 'lh7.png'
+const handImageFilenames = [
+  'lh1.png', 'lh2.png', 'lh3.png', 'lh4.png', 'lh5.png', 'lh6.png', 'lh7.png'
+];
+const faceImageFilenames = [
+  'promo1.png', 'promo2.png', 'promo3.png', 'promo4.png', 'promo5.png', 'promo6.png'
 ];
 
 // Function to create the Three.js image grid
@@ -70,7 +67,7 @@ if (form) {
 document.addEventListener('DOMContentLoaded', () => {
   const oceanCanvas = document.getElementById('ocean-canvas');
   if (oceanCanvas) {
-    const oceanApp = new Ocean(oceanCanvas, imageFilenames); // Pass imageFilenames
+    const oceanApp = new Ocean(oceanCanvas, handImageFilenames, faceImageFilenames);
     // The Ocean class will now handle creating the image grid internally
   } else {
     console.error('Ocean canvas not found!');
