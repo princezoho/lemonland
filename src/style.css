@@ -137,8 +137,8 @@ h1 {
 @media (max-width: 600px) {
   .center-content {
     padding: 1.5em 1em;
-    width: 90%;
-    max-width: 350px;
+    width: 96%;
+    max-width: 410px;
   }
   
   .logo {
@@ -162,14 +162,14 @@ h1 {
   
   #signup-form input[type="email"] {
     width: 100%;
-    max-width: 280px;
+    max-width: 360px;
     font-size: 16px; /* Prevents zoom on iOS */
     padding: 0.8em 1em; /* Slightly larger for touch */
   }
   
   #signup-form button {
     width: 100%;
-    max-width: 280px;
+    max-width: 360px;
     font-size: 16px; /* Prevents zoom on iOS */
     padding: 0.8em 1em; /* Slightly larger for touch */
   }
