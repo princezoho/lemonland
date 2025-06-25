@@ -1,12 +1,14 @@
 import * as THREE from 'three';
-import { Ocean } from './ocean.js';
 
-// Image filenames in the public directory
+// Defer Ocean loading for better performance
+let oceanLoaded = false;
+
+// Image filenames in the public directory - using JPEG for better performance
 const handImageFilenames = [
-  'lh1.png', 'lh2.png', 'lh3.png', 'lh4.png', 'lh5.png', 'lh6.png', 'lh7.png'
+  'lh1.jpg', 'lh2.jpg', 'lh3.jpg', 'lh4.jpg', 'lh5.jpg', 'lh6.jpg', 'lh7.jpg'
 ];
 const faceImageFilenames = [
-  'promo1.png', 'promo2.png', 'promo3.png', 'promo4.png', 'promo5.png', 'promo6.png'
+  'promo1.jpg', 'promo2.jpg', 'promo3.jpg', 'promo4.jpg', 'promo5.jpg', 'promo6.jpg'
 ];
 
 // Function to create the Three.js image grid
@@ -63,13 +65,34 @@ if (form) {
   });
 }
 
-// Initialize the Three.js ocean effect and image grid
-document.addEventListener('DOMContentLoaded', () => {
-  const oceanCanvas = document.getElementById('ocean-canvas');
-  if (oceanCanvas) {
-    const oceanApp = new Ocean(oceanCanvas, handImageFilenames, faceImageFilenames);
-    // The Ocean class will now handle creating the image grid internally
-  } else {
-    console.error('Ocean canvas not found!');
+// Function to load Ocean lazily
+async function loadOcean() {
+  if (oceanLoaded) return;
+  oceanLoaded = true;
+  
+  try {
+    const { Ocean } = await import('./ocean.js');
+    const oceanCanvas = document.getElementById('ocean-canvas');
+    if (oceanCanvas) {
+      new Ocean(oceanCanvas, handImageFilenames, faceImageFilenames);
+    }
+  } catch (error) {
+    console.error('Failed to load Ocean:', error);
   }
+}
+
+// Initialize immediately for better experience, but with a small delay to prioritize LCP
+document.addEventListener('DOMContentLoaded', () => {
+  // Load Ocean after a short delay to let the main content render first
+  setTimeout(loadOcean, 100);
+  
+  // Also load on first user interaction as fallback
+  const loadOnInteraction = () => {
+    loadOcean();
+    document.removeEventListener('mousedown', loadOnInteraction);
+    document.removeEventListener('touchstart', loadOnInteraction);
+  };
+  
+  document.addEventListener('mousedown', loadOnInteraction, { passive: true });
+  document.addEventListener('touchstart', loadOnInteraction, { passive: true });
 }); 

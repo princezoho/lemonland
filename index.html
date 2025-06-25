@@ -4,24 +4,71 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Lemon Squeeze</title>
-    <link rel="stylesheet" href="/src/style.css" />
+    
+    <!-- Preload critical assets -->
+    <link rel="preload" href="/lemon-logo.png" as="image" type="image/png">
+    <link rel="preload" href="/src/main.js" as="script">
+    <link rel="preload" href="/src/style.css" as="style">
+    
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    
+    <!-- Critical CSS inline to prevent render blocking -->
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        background: #111;
+        overflow: hidden;
+      }
+      .center-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3;
+        background: rgba(255,255,255,0.05);
+        border-radius: 0;
+        padding: 2.5em 2em 2em 2em;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+        text-align: center;
+        backdrop-filter: blur(8px);
+      }
+    </style>
   </head>
   <body>
     <canvas id="ocean-canvas"></canvas>
+    
     <div class="center-content">
-      <img src="/lemon-logo.png" alt="Lemon Logo" class="logo" />
-      <p class="coming-soon">coming soon</p>
-      <p class="subtitle">Fashion, Culture, Music, Style, News.</p>
-      <div style="overflow: hidden; height: 47px; /* Adjust this height to precisely hide the 'Powered by' branding */">
-        <script async src="https://subscribe-forms.beehiiv.com/embed.js"></script><iframe src="https://subscribe-forms.beehiiv.com/1c5384c5-5096-4799-aa3c-7f3c44a5d640" class="beehiiv-embed" data-test-id="beehiiv-embed" frameborder="0" scrolling="no" style="margin: 0; border-radius: 0px 0px 0px 0px !important; background-color: transparent; box-shadow: 0 0 #0000; width: 100%; height: 160px; /* Set this height to be taller than the wrapper div by the amount of the branding */ display: block;"></iframe>
+      <div class="waitlist-container">
+        <img src="/lemon-logo.png" alt="The Lemon Squeeze Logo" class="logo" width="180" height="auto">
+        <p class="coming-soon">coming soon</p>
+        <h1>THE<br/>LEMON<br/>SQUEEZE</h1>
+        <p class="subtitle">Fashion, Culture, Music, Style, News.</p>
+        
+        <form id="signup-form">
+          <input type="email" placeholder="Enter your email" required aria-label="Email address">
+          <button type="submit">Join the waitlist</button>
+        </form>
+        
+        <div id="form-success" style="display: none;">
+          <p>Thanks for joining! We'll be in touch soon.</p>
+        </div>
       </div>
     </div>
+    
     <footer style="position: fixed; bottom: 8px; left: 0; width: 100%; text-align: center; z-index: 10;">
       <span style="font-size: 8pt; color: #bbb;">
         <a href="/privacy-policy.html" style="color: #bbb; text-decoration: underline; margin-right: 1.5em;">Privacy Policy</a>
         <a href="/terms-and-conditions.html" style="color: #bbb; text-decoration: underline;">Terms and Conditions</a>
       </span>
     </footer>
+    
+    <!-- Load non-critical CSS -->
+    <link rel="stylesheet" href="/src/style.css">
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
