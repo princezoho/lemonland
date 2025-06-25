@@ -9,26 +9,6 @@ export default defineConfig({
       // However, for typical npm module usage, it should NOT be external.
       // If 'three' is in your package.json dependencies, it should be bundled.
       // external: ['three'], // Uncomment if 'three' is explicitly provided globally and not via npm bundling
-      output: {
-        manualChunks: {
-          // Separate Three.js into its own chunk for better caching
-          three: ['three'],
-        }
-      }
     },
-    // Enable source maps for debugging but keep them separate
-    sourcemap: true,
-    // Optimize chunk size
-    chunkSizeWarningLimit: 1000,
   },
-  // Enable compression
-  server: {
-    headers: {
-      'Cache-Control': 'public, max-age=31536000'
-    }
-  },
-  // Optimize dependencies
-  optimizeDeps: {
-    include: ['three']
-  }
 }); 
