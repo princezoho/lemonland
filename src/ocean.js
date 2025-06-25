@@ -88,7 +88,7 @@ function createImageGrid(scene, handImages, faceImages, cameraViewSize, cameraAs
       }
       
       const texture = textureLoader.load(`/${imageName}`);
-      texture.colorSpace = THREE.SRGBColorSpace; // Proper color space for better performance
+      // texture.colorSpace = THREE.SRGBColorSpace; // Temporarily commented out for testing darkening
       texture.generateMipmaps = false; // Disable mipmaps for better performance
       texture.minFilter = THREE.LinearFilter; // Faster filtering
       texture.magFilter = THREE.LinearFilter;
