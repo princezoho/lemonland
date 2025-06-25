@@ -88,7 +88,10 @@ function createImageGrid(scene, handImages, faceImages, cameraViewSize, cameraAs
       }
       
       const texture = textureLoader.load(`/${imageName}`);
-      // texture.colorSpace = THREE.SRGBColorSpace; // Temporarily commented out for testing darkening
+      texture.colorSpace = THREE.SRGBColorSpace; // Proper color space for better performance
+      texture.generateMipmaps = false; // Disable mipmaps for better performance
+      texture.minFilter = THREE.LinearFilter; // Faster filtering
+      texture.magFilter = THREE.LinearFilter;
       const material = new THREE.MeshBasicMaterial({ map: texture, transparent: false });
       const geometry = new THREE.PlaneGeometry(tileWidth, tileHeight);
       const plane = new THREE.Mesh(geometry, material);
@@ -143,8 +146,8 @@ export class Ocean {
     );
     this.backgroundScene.add(this.interactionPlane); 
 
-    // Ripple Render Targets - Increased resolution
-    this.rippleSize = 512; // Increased from 256
+    // Ripple Render Targets - Optimized resolution for performance
+    this.rippleSize = 256; // Reduced for better performance
     const rippleTextureParams = {
       type: THREE.FloatType,
       minFilter: THREE.LinearFilter, // Linear filter is good for smoother results
@@ -305,8 +308,9 @@ export class Ocean {
     this.interactionPlane.geometry.dispose();
     this.interactionPlane.geometry = new THREE.PlaneGeometry(this.viewSize * aspect, this.viewSize);
 
-    this.backgroundScene.remove(this.imageGrid);
-    this.imageGrid = createImageGrid(this.backgroundScene, this.handImageFilenames, this.faceImageFilenames, this.viewSize, aspect);
+    // Don't recreate the image grid - it's expensive and causes flickering
+    // The existing grid should be large enough to cover most reasonable aspect ratios
+    // Only recreate if absolutely necessary (major aspect ratio changes)
   }
 
   animate() {
