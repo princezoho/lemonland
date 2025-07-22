@@ -9,20 +9,20 @@
   <link rel="canonical" href="https://thelemonsqueeze.com/agency">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      line-height: 1.6;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      line-height: 1.4;
       color: #1a1a1a;
       background: #ffffff;
       overflow-x: hidden;
     }
     
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
     
     /* Header */
     header {
@@ -36,7 +36,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.5rem 2rem;
+      padding: 1rem 1.5rem;
     }
     
     .logo { 
@@ -51,13 +51,13 @@
     .cta-header {
       background: #000;
       color: #fff;
-      padding: 0.8rem 2rem;
+      padding: 0.7rem 1.5rem;
       border-radius: 4px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     
     .cta-header:hover { 
@@ -69,19 +69,19 @@
     /* Hero */
     .hero {
       background: #ffffff;
-      padding: 80px 0 120px;
+      padding: 60px 0 80px;
       text-align: center;
       position: relative;
     }
     
     .hero h1 {
       font-family: 'EB Garamond', serif;
-      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-size: clamp(2.2rem, 5vw, 4rem);
       font-weight: 700;
       color: #000;
-      margin-bottom: 2rem;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
     }
     
     .hero .highlight { 
@@ -89,26 +89,26 @@
     }
     
     .hero p {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.3rem;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 1.2rem;
       color: #555;
-      max-width: 680px;
-      margin: 0 auto 3rem;
-      line-height: 1.5;
+      max-width: 650px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.4;
       font-weight: 400;
     }
     
     .cta-primary {
       background: #000;
       color: #fff;
-      padding: 1.2rem 3rem;
+      padding: 1rem 2.5rem;
       border-radius: 4px;
       text-decoration: none;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 1rem;
       display: inline-block;
       transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
     
     .cta-primary:hover { 
@@ -120,7 +120,7 @@
     /* Services Grid */
     .services {
       background: #f8f9fa;
-      padding: 100px 0;
+      padding: 70px 0;
       position: relative;
     }
     
@@ -145,35 +145,36 @@
     
     .services h2 {
       font-family: 'EB Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 700;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: #000;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
     
     .services .subtitle {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.2rem;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 1.1rem;
       color: #666;
       text-align: center;
-      margin-bottom: 4rem;
-      max-width: 600px;
+      margin-bottom: 3rem;
+      max-width: 580px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.35;
     }
     
     .services-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 3rem;
-      margin-top: 4rem;
+      gap: 2rem;
+      margin-top: 2rem;
     }
     
     .service-card {
       background: #fff;
-      padding: 3rem 2.5rem;
+      padding: 2rem 2rem;
       border-radius: 8px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.08);
       transition: all 0.3s ease;
@@ -187,92 +188,96 @@
     
     .service-card h3 {
       font-family: 'EB Garamond', serif;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       font-weight: 600;
       color: #000;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       letter-spacing: -0.01em;
+      line-height: 1.1;
     }
     
     .service-card p {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       color: #666;
-      line-height: 1.6;
-      font-size: 1rem;
+      line-height: 1.4;
+      font-size: 0.95rem;
     }
     
     /* Why Choose Us */
     .why-choose {
       background: #ffffff;
-      padding: 100px 0;
+      padding: 70px 0;
       position: relative;
     }
     
     .why-choose h2 {
       font-family: 'EB Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 700;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: #000;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
     
     .why-choose .subtitle {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.2rem;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 1.1rem;
       color: #666;
       text-align: center;
-      margin-bottom: 4rem;
-      max-width: 600px;
+      margin-bottom: 3rem;
+      max-width: 580px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.35;
     }
     
-         .benefits {
-       display: grid;
-       grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-       gap: 2.5rem;
-       margin-top: 4rem;
-     }
+             .benefits {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
     
     .benefit {
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
     }
     
     .benefit-icon {
-      width: 80px;
-      height: 80px;
+      width: 70px;
+      height: 70px;
       background: #f8f9fa;
       border-radius: 50%;
-      margin: 0 auto 2rem;
+      margin: 0 auto 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: 1.8rem;
       border: 2px solid #e5e5e5;
     }
     
     .benefit h3 {
       font-family: 'EB Garamond', serif;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: #000;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       letter-spacing: -0.01em;
+      line-height: 1.1;
     }
     
     .benefit p {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       color: #666;
-      line-height: 1.6;
+      line-height: 1.4;
+      font-size: 0.95rem;
     }
     
     /* CTA Section */
     .cta-section {
       background: #1a1a1a;
-      padding: 100px 0;
+      padding: 70px 0;
       text-align: center;
       position: relative;
     }
@@ -300,35 +305,36 @@
     
     .cta-section h2 {
       font-family: 'EB Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-size: clamp(1.8rem, 4vw, 3rem);
       font-weight: 700;
       color: #fff;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.01em;
+      margin-bottom: 1.2rem;
+      letter-spacing: -0.02em;
     }
     
     .cta-section p {
-      font-family: 'Inter', sans-serif;
-      font-size: 1.2rem;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 1.1rem;
       color: #ccc;
-      margin-bottom: 3rem;
-      max-width: 600px;
+      margin-bottom: 2.5rem;
+      max-width: 580px;
       margin-left: auto;
       margin-right: auto;
+      line-height: 1.35;
     }
     
-         .cta-final {
-       background: #ffe066;
-       color: #000;
-       padding: 1.2rem 3rem;
-       border-radius: 4px;
-       text-decoration: none;
-       font-weight: 600;
-       font-size: 1.1rem;
-       display: inline-block;
-       transition: all 0.3s ease;
-       font-family: 'Inter', sans-serif;
-     }
+             .cta-final {
+      background: #ffe066;
+      color: #000;
+      padding: 1rem 2.5rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-block;
+      transition: all 0.3s ease;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
      
      .cta-final:hover { 
        background: #ffed4e;
@@ -341,22 +347,23 @@
       background: #000;
       color: #fff;
       text-align: center;
-      padding: 3rem 0;
+      padding: 2rem 0;
     }
     
     footer p {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       color: #ccc;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
     
     /* Mobile Responsive */
     @media (max-width: 768px) {
-      .hero { padding: 60px 0 80px; }
-      .services, .why-choose, .cta-section { padding: 60px 0; }
-      .services-grid, .benefits { grid-template-columns: 1fr; gap: 2rem; }
-      .service-card { padding: 2rem 1.5rem; }
-      nav { padding: 1rem; }
+      .hero { padding: 40px 0 60px; }
+      .services, .why-choose, .cta-section { padding: 50px 0; }
+      .services-grid, .benefits { grid-template-columns: 1fr; gap: 1.5rem; }
+      .service-card { padding: 1.5rem 1.25rem; }
+      .benefit { padding: 1rem 0.5rem; }
+      nav { padding: 0.8rem 1rem; }
       .container { padding: 0 1rem; }
     }
   </style>
@@ -474,7 +481,7 @@
 
   <footer>
     <div class="container">
-      <p>&copy; 2024 The Lemon Squeeze. All rights reserved.</p>
+      <p>&copy; 2025 The Lemon Squeeze. All rights reserved.</p>
     </div>
   </footer>
 </body>
